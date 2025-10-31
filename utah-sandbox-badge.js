@@ -1,10 +1,25 @@
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", fn);
+    } else {
+      fn();
+    }
+  }
+
+  ready(function () {
+    var host = document.createElement("div");
+    host.id = "utah-sandbox-badge-root";
+
+    var html = `
 <!-- Google Fonts: Poppins -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
 
 <footer style="text-align: center; padding: 20px; background-color: #f9f9f9;">
   <div class="badge-wrap" style="position: relative; display: inline-block; max-width: 100%;">
-    <!-- Badge image -->
-<img src="https://usbwebsite.github.io/For-Profit-SALP-1Law/assets/sandbox-footer-badge.svg" alt="Utah Sandbox Badge" style="max-width: 100%; height: auto; display: block;">
+    <!-- Badge SVG -->
+    <img src="https://usbwebsite.github.io/For-Profit-SALP-1Law/assets/sandbox-footer-badge.svg" alt="Utah Sandbox Badge" style="max-width: 100%; height: auto; display: block;">
+
     <!-- Real Feedback Button overlay -->
     <a href="https://utahinnovationoffice.org/sandbox-feedback/" 
        target="_blank" 
@@ -16,11 +31,10 @@
 </footer>
 
 <style>
-/* Base (desktop-first) */
 .pulse-button {
   position: absolute;
-  bottom: 28%;         /* aligned vertically with left text */
-  right: 12%;          /* horizontal anchor on the right */
+  bottom: 28%;
+  right: 12%;
   background-color: #dca72a;
   color: #000;
   font-family: 'Poppins', sans-serif;
@@ -33,42 +47,14 @@
   transition: transform 0.2s ease-in-out;
   white-space: nowrap;
 }
+.pulse-button:hover { animation: pulse 0.6s ease; }
+@keyframes pulse {0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+@media (max-width: 900px) {.pulse-button{bottom:30%;right:10%;font-size:clamp(0.95rem,2.5vw,1.05rem);padding:clamp(10px,1.8vw,12px) clamp(20px,3.2vw,28px);}}
+@media (max-width: 600px) {.pulse-button{right:auto;left:50%;transform:translateX(-50%);bottom:34%;font-size:clamp(0.9rem,4vw,1rem);padding:clamp(9px,3.5vw,12px) clamp(18px,6vw,26px);}}
+</style>
+`;
 
-/* One-time pulse on hover */
-.pulse-button:hover {
-  animation: pulse 0.6s ease;
-}
-
-@keyframes pulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-/* Tablet: scale text/padding a bit and nudge position */
-@media (max-width: 900px) {
-  .pulse-button {
-    bottom: 30%;
-    right: 10%;
-    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
-    padding: clamp(10px, 1.8vw, 12px) clamp(20px, 3.2vw, 28px);
-    border-width: 2px;
-  }
-}
-
-/* Phone: center the button over the badge and scale further */
-@media (max-width: 600px) {
-  .pulse-button {
-    right: auto;          /* stop anchoring to right */
-    left: 50%;            /* center horizontally */
-    transform: translateX(-50%);  /* true centering */
-    bottom: 34%;          /* raise slightly for balance */
-    font-size: clamp(0.9rem, 4vw, 1rem);
-    padding: clamp(9px, 3.5vw, 12px) clamp(18px, 6vw, 26px);
-    border-width: 2px;
-  }
-}
-
-/* Very small phones: keep it readable */
-@media (max-width:
-
+    host.innerHTML = html;
+    document.body.appendChild(host);
+  });
+})();
